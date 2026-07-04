@@ -5,16 +5,15 @@ const gridContainer = document.querySelector(".grid-container");
 const gridRows = 10;
 const gridColumns = 20;
 
-for (let i=0; i<gridRows; i++) {
+for (let r=0; r<gridRows; r++) {
 
 	let gridRowElement = document.createElement("div");
 	gridRowElement.classList.add("grid-row");
 	gridContainer.appendChild(gridRowElement);
 
-	for (let j=0; j<gridColumns; j++) {
+	for (let c=0; c<gridColumns; c++) {
 
-		let gridNodeElement = document.createElement("div");
-		gridNodeElement.classList.add("grid-node");
-		gridRowElement.appendChild(gridNodeElement);
+		let node = new GridNode(r, c);
+		gridRowElement.appendChild(node.element);
 	}
 }
