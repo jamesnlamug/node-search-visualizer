@@ -3,6 +3,9 @@ runButton.addEventListener("click", runBFSAlgorithm);
 
 function runBFSAlgorithm() {
 
+	// reset
+	resetNodeVisuals();
+
 	// init
 	let startNode = getRandomNode();
 	let endNode = null;
