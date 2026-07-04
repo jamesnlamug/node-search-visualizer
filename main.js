@@ -39,6 +39,24 @@ function resetNodeVisuals() {
 	}
 }
 
+function getRandomNode() {
+	let row = Math.floor(Math.random() * gridRows);
+	let column = Math.floor(Math.random() * gridColumns);
+	return grid[row][column];
+}
+
+function getNodeInDirection(node, direction) {
+	let row = node.row+direction.row;
+	let col = node.col+direction.col;
+
+	if (row >= 0 && row < gridRows && col >= 0 && col < gridColumns) {
+		return grid[row][col];
+	}
+	
+	// position outside of grid
+	return null;
+}
+
 const searchIterationDelayMilliseconds = 10;
 const pathIterationDelayMilliseconds = 20;
 let visualizationTimers = [];

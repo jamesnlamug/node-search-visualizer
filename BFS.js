@@ -55,24 +55,6 @@ function runBFSAlgorithm() {
 	applyPathVisual(searchDelay, startNode, endNode, pathways);
 }
 
-function getRandomNode() {
-	let row = Math.floor(Math.random() * gridRows);
-	let column = Math.floor(Math.random() * gridColumns);
-	return grid[row][column];
-}
-
-function getNodeInDirection(node, direction) {
-	let row = node.row+direction.row;
-	let col = node.col+direction.col;
-
-	if (row >= 0 && row < gridRows && col >= 0 && col < gridColumns) {
-		return grid[row][col];
-	}
-	
-	// position outside of grid
-	return null;
-}
-
 function traceNodePathBackwards(node, paths) {
 
 	for (let nodePath of paths) {
