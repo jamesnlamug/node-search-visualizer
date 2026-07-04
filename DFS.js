@@ -1,5 +1,5 @@
 class DFSData {
-	constructor (endNode) {
+	constructor (endNode, maintainDirection) {
 		this.searchedNodes = [];
 		this.searchedNodeGroups = [];
 		this.pathways = [];
@@ -7,15 +7,16 @@ class DFSData {
 		this.endNode = endNode;
 		this.reachedEnd = false;
 
+		this.maintainDirection = maintainDirection;
 		this.preferredDirection = Direction.cardinalDirections[0];
 		this.iterations = 0;
 	}
 }
 
-const dfsButton = document.querySelector("#dfs-button");
-dfsButton.addEventListener("click", runDFSAlgorithm);
+document.querySelector("#dfs-button").addEventListener("click", () => { runDFSAlgorithm(false); });
+document.querySelector("#dfs-maintain-button").addEventListener("click", () => {runDFSAlgorithm(true);} );
 
-function runDFSAlgorithm() {
+function runDFSAlgorithm(maintainDirection) {
 
 	// reset
 	resetNodeVisuals();
@@ -29,7 +30,7 @@ function runDFSAlgorithm() {
 	endNode.element.classList.add("end-node");
 
 	// main loop
-	let data = runDFSStep(startNode, new DFSData(endNode));
+	let data = runDFSStep(startNode, new DFSData(endNode, maintainDirection));
 
 	console.log(`[runDFSAlgorithm] DFS completed with ${data.iterations} iterations`);
 
@@ -54,7 +55,8 @@ function runDFSStep(currentNode, data) {
 	}
 	
 	// get adjacent node in all directions
-	let directions = [data.preferredDirection, ...Direction.cardinalDirections];
+	let directions;
+	directions = data.maintainDirection ? [data.preferredDirection, ...Direction.cardinalDirections] : Direction.cardinalDirections;
 	for (let direction of directions) {
 		
 		let nextNode = getNodeInDirection(currentNode, direction);
