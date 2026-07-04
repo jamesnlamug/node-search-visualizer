@@ -1,7 +1,7 @@
 //
 //
 //
-const gridContainer = document.querySelector(".grid-container");
+const gridContainer = document.querySelector(".grid");
 const grid = [];
 
 const gridRows = 10;

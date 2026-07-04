@@ -3,16 +3,21 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
 	<title>Node Search Algorithm Visualization</title>
 	<link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-	<div class="grid-container"></div>
 	<div class="button-container">
 		<button id="bfs-button">Run BFS</button>
 		<button id="dfs-button">Run DFS</button>
 		<button id="dfs-maintain-button">Run DFS (prefer to maintain direction)</button>
 		<button id="reset-visuals-button">Reset Visualization</button>
+	</div>
+	
+	<div class="grid-container">
+		<div class="grid"></div>
 	</div>
 	
 	<script src="Direction.js"></script>
