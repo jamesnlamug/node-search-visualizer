@@ -1,5 +1,5 @@
-const runButton = document.querySelector("#bfs-button");
-runButton.addEventListener("click", runBFSAlgorithm);
+const bfsButton = document.querySelector("#bfs-button");
+bfsButton.addEventListener("click", runBFSAlgorithm);
 
 function runBFSAlgorithm() {
 
