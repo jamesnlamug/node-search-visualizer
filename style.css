@@ -39,3 +39,7 @@ body {
 .path-node {
 	background-color: yellow;
 }
+
+.button-container {
+	display: inline;
+}

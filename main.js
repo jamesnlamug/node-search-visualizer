@@ -25,3 +25,15 @@ for (let r=0; r<gridRows; r++) {
 
 	grid.push(gridRow);
 }
+
+document.querySelector("#reset-visuals-button").addEventListener("click", resetNodeVisuals);
+
+function resetNodeVisuals() {
+
+	for (let r=0; r<gridRows; r++) {
+		for (let c=0; c<gridColumns; c++) {
+
+			grid[r][c].resetElementClasses();
+		}
+	}
+}
