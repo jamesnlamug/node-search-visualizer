@@ -15,6 +15,7 @@ function runBFSAlgorithm() {
 	let iterations = 0; // failsafe for infinite loop
 
 	let searchedNodes = [];
+	let pathways = [];
 	let queue = [startNode];
 	let reachedEnd = false;
 
@@ -29,6 +30,8 @@ function runBFSAlgorithm() {
 			if (nextNode != null && !searchedNodes.includes(nextNode)) {
 				queue.push(nextNode);
 				searchedNodes.push(nextNode);
+
+				pathways.push(new NodePath(nextNode, currentNode));
 			}
 		}
 
@@ -38,9 +41,23 @@ function runBFSAlgorithm() {
 		if (currentNode === endNode) {
 			reachedEnd = true;
 		}
+
+		// visual
+		else if (currentNode !== startNode) {
+			currentNode.element.classList.add("searched-node");
+		}
 	}
 
-	console.log(`[runBFSAlgorithm] BFS completed with ${iterations} iterations`)
+	console.log(`[runBFSAlgorithm] BFS completed with ${iterations} iterations`);
+
+	//visualize completed pathway
+	let pathedNode = traceNodePathBackwards(endNode, pathways);
+
+	while (pathedNode != startNode && iterations < 10000) {
+		pathedNode.element.classList.add("path-node");
+		pathedNode = traceNodePathBackwards(pathedNode, pathways);
+		iterations ++;
+	}
 }
 
 function getRandomNode() {
@@ -58,5 +75,18 @@ function getNodeInDirection(node, direction) {
 	}
 	
 	// position outside of grid
+	return null;
+}
+
+function traceNodePathBackwards(node, paths) {
+
+	for (let nodePath of paths) {
+
+		if (nodePath.node == node) {
+			return nodePath.previousNode;
+		}
+	}
+
+	// did not find
 	return null;
 }

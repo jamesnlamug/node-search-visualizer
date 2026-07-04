@@ -31,3 +31,11 @@ body {
 .end-node {
 	background-color: brown;
 }
+
+.searched-node {
+	background-color: cadetblue;
+}
+
+.path-node {
+	background-color: yellow;
+}
