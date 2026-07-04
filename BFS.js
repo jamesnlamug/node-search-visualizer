@@ -18,12 +18,14 @@ function runBFSAlgorithm() {
 	let iterations = 0; // failsafe for infinite loop
 
 	let searchedNodes = [];
+	let searchedNodeGroups = [];
 	let pathways = [];
 	let queue = [startNode];
 	let reachedEnd = false;
 
 	while (!reachedEnd && iterations < 10000) {
 		
+		searchedNodeGroups.push(new NodeIterationGroup(iterations));
 		let currentNode = queue.shift();
 
 		// get adjacent node in all directions
@@ -33,34 +35,24 @@ function runBFSAlgorithm() {
 			if (nextNode != null && !searchedNodes.includes(nextNode)) {
 				queue.push(nextNode);
 				searchedNodes.push(nextNode);
+				searchedNodeGroups[searchedNodeGroups.length-1].nodes.push(nextNode);
+				iterations ++;
 
 				pathways.push(new NodePath(nextNode, currentNode));
 			}
 		}
 
-		iterations ++;
-
 		// end condition
 		if (currentNode === endNode) {
 			reachedEnd = true;
-		}
-
-		// visual
-		else if (currentNode !== startNode) {
-			currentNode.element.classList.add("searched-node");
 		}
 	}
 
 	console.log(`[runBFSAlgorithm] BFS completed with ${iterations} iterations`);
 
-	//visualize completed pathway
-	let pathedNode = traceNodePathBackwards(endNode, pathways);
-
-	while (pathedNode != startNode && iterations < 10000) {
-		pathedNode.element.classList.add("path-node");
-		pathedNode = traceNodePathBackwards(pathedNode, pathways);
-		iterations ++;
-	}
+	// run visuals
+	let searchDelay = applySearchVisual(searchedNodeGroups);
+	applyPathVisual(searchDelay, startNode, endNode, pathways);
 }
 
 function getRandomNode() {
@@ -92,4 +84,37 @@ function traceNodePathBackwards(node, paths) {
 
 	// did not find
 	return null;
+}
+
+const searchIterationDelayMilliseconds = 10;
+const pathIterationDelayMilliseconds = 20;
+function applySearchVisual(searchedNodeGroups) {
+	for (let group of searchedNodeGroups) {
+		for (let node of group.nodes) {
+
+			setTimeout(() => {
+				node.element.classList.add("searched-node");
+			}, searchIterationDelayMilliseconds*group.iteration);
+		}
+	}
+
+	return searchedNodeGroups[searchedNodeGroups.length-1].iteration*searchIterationDelayMilliseconds;
+}
+
+function applyPathVisual(searchDelay, startNode, endNode, paths) {
+
+	let pathedNode = traceNodePathBackwards(endNode, paths);
+
+	let pathNodes = [];
+	while (pathedNode != startNode) {
+		pathNodes.unshift(pathedNode);
+		pathedNode = traceNodePathBackwards(pathedNode, paths);
+	}
+
+	for (let i=0; i<pathNodes.length; i++) {
+		let node = pathNodes[i];
+		setTimeout(() => {
+				node.element.classList.add("path-node");
+		}, searchDelay + pathIterationDelayMilliseconds*i);
+	}
 }

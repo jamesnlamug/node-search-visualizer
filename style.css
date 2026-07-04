@@ -27,11 +27,11 @@ body {
 }
 
 .start-node {
-	background-color: aquamarine;
+	background-color: aquamarine !important;
 }
 
 .end-node {
-	background-color: brown;
+	background-color: brown !important;
 }
 
 .searched-node {
