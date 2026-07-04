@@ -1,5 +1,4 @@
 body {
-    margin: 0;
     place-items: center;
 	text-align: center;
 
@@ -7,6 +6,7 @@ body {
 }
 
 body > div {
+	margin: 10px;
 	padding: 20px;
 }
 
@@ -25,6 +25,10 @@ button {
 	border-style: none;
 
     transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.button-container {
+	display: inline-block;
 }
 
 .grid-container {
@@ -69,8 +73,4 @@ button {
 
 .path-node {
 	background-color: #FBBF24;
-}
-
-.button-container {
-	display: inline;
 }
